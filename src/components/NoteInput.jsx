@@ -18,6 +18,10 @@ export class NoteInput extends React.Component {
     const max = 50
     const titleInputUserLength = event.target.value.length
 
+    if (titleInputUserLength > max) {
+      return;
+    }
+
     this.setState((prevState) => {
       return {
         ...prevState,

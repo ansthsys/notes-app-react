@@ -13,14 +13,14 @@ export const NoteList = ({query, notes, onDelete, onArchived, type}) => {
     return (<p>Archived Note is empty</p>)
   }
 
-  return (
-    <div className="notes-list">
-      {
-        notes.filter((note) => {
-          if (query) return note.title.toLowerCase().includes(query.toLowerCase())
-          return note
-        }).map((note) => {
-          if (!note.archived && !type) {
+  if(!type) {
+    return (
+      <div className="notes-list">
+        {
+          notesAct.filter((note) => {
+            if (query) return note.title.toLowerCase().includes(query.toLowerCase())
+            return note
+          }).map((note) => {
             return (
               <NoteItem
               key={note.id}
@@ -30,9 +30,18 @@ export const NoteList = ({query, notes, onDelete, onArchived, type}) => {
               onDelete={onDelete}
               {...note}/>
             )
-          }
-
-          if (note.archived && type) {
+          })
+        }
+      </div>
+    )
+  } else {
+    return (
+      <div className="notes-list">
+        {
+          notesArc.filter((note) => {
+            if (query) return note.title.toLowerCase().includes(query.toLowerCase())
+            return note
+          }).map((note) => {
             return (
               <NoteItem
               key={note.id}
@@ -42,9 +51,9 @@ export const NoteList = ({query, notes, onDelete, onArchived, type}) => {
               onDelete={onDelete}
               {...note}/>
             )
-          }
-        })
-      }
-    </div>
-  )
+          })
+        }
+      </div>
+    )
+  }
 }
